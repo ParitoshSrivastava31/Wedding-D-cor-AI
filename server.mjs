@@ -6,15 +6,15 @@ import { generateDesign } from "./api/generate.js";
 
 const root = resolve(fileURLToPath(new URL(".", import.meta.url)));
 const port = Number(process.env.PORT || 3000);
-const publicFiles = new Set(["/index.html", "/styles.css", "/app.js", "/assets/bg.jpg"]);
-const types = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".svg": "image/svg+xml", ".jpg": "image/jpeg" };
+const publicFiles = new Set(["/index.html", "/styles.css", "/app.js", "/assets/bg.jpg", "/assets/image.png"]);
+const types = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".webp": "image/webp" };
 
 async function readJson(req) {
   const chunks = [];
   let size = 0;
   for await (const chunk of req) {
     size += chunk.length;
-    if (size > 5 * 1024 * 1024) throw Object.assign(new Error("Request is too large."), { status: 413 });
+    if (size > 16 * 1024 * 1024) throw Object.assign(new Error("Request is too large."), { status: 413 });
     chunks.push(chunk);
   }
   try { return JSON.parse(Buffer.concat(chunks).toString("utf8")); }

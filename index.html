@@ -67,7 +67,7 @@
                 <span>Garden</span>
               </button>
               <button class="sample-card" type="button" data-sample="terrace" aria-label="Use sample: open-air venue">
-                <img src="https://images.unsplash.com/photo-1519225421980-888cb9e06b6d?auto=format&fit=crop&w=200&h=130&q=75" alt="" loading="lazy" />
+                <img src="/assets/image.png" alt="" loading="lazy" />
                 <span>Terrace</span>
               </button>
             </div>
@@ -96,9 +96,68 @@
           </div>
 
           <div class="step-block">
-            <h2><span class="num">3</span> Add your details <span class="optional">optional</span></h2>
+            <h2><span class="num">3</span> Add details &amp; references <span class="optional">optional</span></h2>
             <textarea id="style-notes" maxlength="400" rows="3" placeholder="Blush peonies, candlelight, a long family table…"></textarea>
             <div class="char-row"><span><span id="char-count">0</span>/400</span></div>
+
+            <div class="ref-block">
+              <div class="ref-header">
+                <span class="ref-title">Reference photos <small>(multi-image fusion)</small></span>
+                <span id="ref-count" class="ref-count">0/4</span>
+              </div>
+              <p class="ref-hint">Attach florals, mandap/arch ideas, or colour palettes to fuse into your venue.</p>
+              <input id="ref-file" class="visually-hidden" type="file" accept="image/jpeg,image/png,image/webp" multiple />
+              <div id="ref-grid" class="ref-grid">
+                <label id="ref-add" class="ref-add" for="ref-file" tabindex="0" aria-label="Add reference photo">
+                  <span>+</span>
+                  <small>Add photo</small>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="step-block">
+            <h2><span class="num">4</span> Nano Banana 2.1 settings <span class="optional">studio</span></h2>
+            <div class="settings-group">
+              <div class="setting-row">
+                <span class="setting-label">Output resolution</span>
+                <div class="segmented" role="group" aria-label="Output resolution">
+                  <button type="button" class="seg-btn selected" data-size="1K" aria-pressed="true">1K <small>Fast</small></button>
+                  <button type="button" class="seg-btn" data-size="2K" aria-pressed="false">2K <small>HD</small></button>
+                  <button type="button" class="seg-btn" data-size="4K" aria-pressed="false">4K <small>Ultra</small></button>
+                </div>
+              </div>
+
+              <div class="setting-row">
+                <span class="setting-label">Thinking level</span>
+                <div class="segmented" role="group" aria-label="Thinking level">
+                  <button type="button" class="seg-btn" data-thinking="minimal" aria-pressed="false">Minimal</button>
+                  <button type="button" class="seg-btn selected" data-thinking="medium" aria-pressed="true">Medium</button>
+                  <button type="button" class="seg-btn" data-thinking="high" aria-pressed="false">High</button>
+                </div>
+              </div>
+
+              <div class="setting-row setting-inline">
+                <label class="setting-label" for="aspect-ratio">Aspect ratio</label>
+                <select id="aspect-ratio" class="setting-select">
+                  <option value="auto">Match venue (Auto)</option>
+                  <option value="16:9">16:9 · Widescreen</option>
+                  <option value="4:3">4:3 · Classic</option>
+                  <option value="1:1">1:1 · Square</option>
+                  <option value="3:4">3:4 · Portrait</option>
+                  <option value="9:16">9:16 · Vertical</option>
+                  <option value="4:1">4:1 · Panoramic</option>
+                </select>
+              </div>
+
+              <label class="grounding-toggle" for="search-grounding">
+                <input id="search-grounding" type="checkbox" />
+                <span class="grounding-text">
+                  <strong>Google Search grounding</strong>
+                  <small>Ground specific floral varieties &amp; cultural decor via Web &amp; Image Search</small>
+                </span>
+              </label>
+            </div>
           </div>
 
           <button id="generate-button" class="generate-button" type="button" disabled>
@@ -134,10 +193,31 @@
                 <input id="compare-range" class="compare-range" type="range" min="0" max="100" value="50" aria-label="Compare before and after" />
               </div>
               <div class="result-footer">
-                <div><span class="result-kicker">Your design</span><h3 id="result-title">Royal Indian</h3></div>
+                <div>
+                  <span id="result-kicker" class="result-kicker">Your design · 1K</span>
+                  <h3 id="result-title">Royal Indian</h3>
+                </div>
                 <div class="result-actions">
+                  <button id="undo-button" class="ghost-button hidden" type="button">Undo edit</button>
                   <button id="regenerate-button" class="ghost-button" type="button">Try again</button>
                   <a id="download-button" class="download-button" download="my-wedding-design.png" href="#">Download</a>
+                </div>
+              </div>
+
+              <div class="refine-box">
+                <div class="refine-header">
+                  <span class="refine-title">Conversational edit</span>
+                  <span class="refine-badge">Multi-turn consistency</span>
+                </div>
+                <div class="refine-chips">
+                  <button type="button" class="refine-chip" data-prompt="Add more warm glowing candles and fairy lights throughout the space">+ More candles &amp; lights</button>
+                  <button type="button" class="refine-chip" data-prompt="Add lush floral arrangements lining both sides of the aisle">+ Lush aisle florals</button>
+                  <button type="button" class="refine-chip" data-prompt="Shift the lighting to romantic golden-hour sunset warmth">Golden hour glow</button>
+                  <button type="button" class="refine-chip" data-prompt="Add cascading jasmine and rose garlands overhead">Hanging garlands</button>
+                </div>
+                <div class="refine-input-row">
+                  <input id="refine-input" type="text" maxlength="400" placeholder="Ask to tweak florals, lighting, seating, or drapery…" />
+                  <button id="refine-button" class="refine-button" type="button">Refine</button>
                 </div>
               </div>
             </div>
