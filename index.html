@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fffaf6" />
+    <meta name="description" content="Upload or snap a photo of your wedding venue and see it transformed into your dream celebration with Wedding Decor AI." />
+    <title>Wedding Decor AI — See your wedding venue reimagined</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Wedding Decor AI home">
+        <span class="brand-mark" aria-hidden="true">♡</span>
+        <span class="brand-name">Wedding Decor <em>AI</em></span>
+      </a>
+      <span class="pill"><span class="pill-dot"></span>Wedding venue studio</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Visualise before you book</p>
+        <h1>Your venue, <em>dressed for the day you’ve dreamed of.</em></h1>
+        <p class="lede">Upload a photo of any space. Pick a mood. In under a minute, see it as your wedding.</p>
+      </section>
+
+      <section class="studio" aria-label="Wedding design studio">
+        <div class="panel controls">
+          <div class="step-block">
+            <h2><span class="num">1</span> Upload your venue</h2>
+
+            <input id="venue-file" class="visually-hidden" type="file" accept="image/jpeg,image/png,image/webp" />
+            <label id="upload-zone" class="upload-zone" for="venue-file" tabindex="0">
+              <span id="upload-content" class="upload-content">
+                <span class="upload-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4.5 15v3.75c0 .966.784 1.75 1.75 1.75h11.5c.966 0 1.75-.784 1.75-1.75V15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="upload-title">Drag a photo here</span>
+                <span class="upload-subtitle">or click to choose from your device · paste works too</span>
+                <span class="upload-hint">JPG, PNG or WebP · up to 15 MB</span>
+              </span>
+              <img id="upload-preview" class="upload-preview hidden" alt="Selected wedding venue" />
+              <span id="replace-photo" class="replace-photo hidden">Change photo</span>
+            </label>
+            <p id="file-error" class="field-error" role="alert"></p>
+            <input id="camera-file" class="visually-hidden" type="file" accept="image/*" capture="environment" />
+            <label class="camera-button" for="camera-file">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1.2-2h6.6l1.2 2h2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5v-9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.6"/></svg>
+              Take a photo with your camera
+            </label>
+
+            <div class="sample-row">
+              <span>No photo handy? Try one</span>
+              <button class="sample-card" type="button" data-sample="hall" aria-label="Use sample: reception hall">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=200&h=130&q=75" alt="" loading="lazy" />
+                <span>Hall</span>
+              </button>
+              <button class="sample-card" type="button" data-sample="garden" aria-label="Use sample: garden venue">
+                <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=200&h=130&q=75" alt="" loading="lazy" />
+                <span>Garden</span>
+              </button>
+              <button class="sample-card" type="button" data-sample="terrace" aria-label="Use sample: open-air venue">
+                <img src="https://images.unsplash.com/photo-1519225421980-888cb9e06b6d?auto=format&fit=crop&w=200&h=130&q=75" alt="" loading="lazy" />
+                <span>Terrace</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="step-block">
+            <h2><span class="num">2</span> Choose the mood</h2>
+            <div class="style-grid" role="group" aria-label="Wedding style">
+              <button class="style-option selected" type="button" data-style="Royal Indian" aria-pressed="true">
+                <span class="palette"><i style="background:#8a1c2b"></i><i style="background:#e8a33d"></i><i style="background:#d4af6a"></i></span>
+                <span class="style-name">Royal Indian</span><span class="style-detail">Marigold, silk &amp; gold</span>
+              </button>
+              <button class="style-option" type="button" data-style="Modern Luxury" aria-pressed="false">
+                <span class="palette"><i style="background:#f3ece0"></i><i style="background:#c8a96a"></i><i style="background:#3a3430"></i></span>
+                <span class="style-name">Modern Luxury</span><span class="style-detail">Sleek, ivory &amp; brass</span>
+              </button>
+              <button class="style-option" type="button" data-style="Floral Garden" aria-pressed="false">
+                <span class="palette"><i style="background:#f2c9c4"></i><i style="background:#9fb08c"></i><i style="background:#fbf1e6"></i></span>
+                <span class="style-name">Floral Garden</span><span class="style-detail">Blush roses in bloom</span>
+              </button>
+              <button class="style-option" type="button" data-style="Minimal Elegant" aria-pressed="false">
+                <span class="palette"><i style="background:#efe8dc"></i><i style="background:#b9ad99"></i><i style="background:#fffdf8"></i></span>
+                <span class="style-name">Minimal Elegant</span><span class="style-detail">Quiet, airy &amp; calm</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="step-block">
+            <h2><span class="num">3</span> Add your details <span class="optional">optional</span></h2>
+            <textarea id="style-notes" maxlength="400" rows="3" placeholder="Blush peonies, candlelight, a long family table…"></textarea>
+            <div class="char-row"><span><span id="char-count">0</span>/400</span></div>
+          </div>
+
+          <button id="generate-button" class="generate-button" type="button" disabled>
+            <span id="generate-label">Upload a photo to begin</span>
+          </button>
+          <p class="privacy-note">Your photo is used only to create this design.</p>
+        </div>
+
+        <div class="panel preview-area" aria-label="Your wedding design preview">
+          <div id="preview-board" class="preview-board">
+            <div id="empty-state" class="empty-state">
+              <div class="empty-ring" aria-hidden="true">✦</div>
+              <h3>Your wedding vision appears here</h3>
+              <p>Upload a venue photo and choose a mood to see the transformation.</p>
+            </div>
+
+            <div id="loading-state" class="loading-state hidden" aria-live="polite">
+              <img id="loading-bg" class="loading-bg" alt="" />
+              <div class="loading-card">
+                <div class="spinner" aria-hidden="true"></div>
+                <p id="loading-message">Finding the feeling…</p>
+                <span>Usually 20–40 seconds</span>
+              </div>
+            </div>
+
+            <div id="result-state" class="result-state hidden">
+              <div id="compare" class="compare">
+                <img id="result-image" alt="AI-generated wedding venue design" />
+                <div id="compare-before" class="compare-before"><img id="result-original" alt="Original venue photo" /></div>
+                <span class="compare-label label-before">Before</span>
+                <span class="compare-label label-after">After</span>
+                <div id="compare-handle" class="compare-handle" aria-hidden="true"><span>⇄</span></div>
+                <input id="compare-range" class="compare-range" type="range" min="0" max="100" value="50" aria-label="Compare before and after" />
+              </div>
+              <div class="result-footer">
+                <div><span class="result-kicker">Your design</span><h3 id="result-title">Royal Indian</h3></div>
+                <div class="result-actions">
+                  <button id="regenerate-button" class="ghost-button" type="button">Try again</button>
+                  <a id="download-button" class="download-button" download="my-wedding-design.png" href="#">Download</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="disclaimer">AI-generated concept images are for inspiration. Final venue styling may vary.</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

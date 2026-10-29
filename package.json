@@ -1,0 +1,13 @@
+{
+  "name": "lovers-ai-wedding-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A small AI wedding venue design demo powered by Gemini image editing.",
+  "scripts": {
+    "start": "node --env-file=.env server.mjs"
+  },
+  "engines": {
+    "node": ">=20.6"
+  }
+}
