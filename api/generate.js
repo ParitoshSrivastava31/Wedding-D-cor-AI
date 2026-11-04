@@ -278,15 +278,72 @@ export async function generateDesign(body) {
 export const config = { api: { bodyParser: { sizeLimit: "16mb" } } };
 
 export default async function handler(req, res) {
+  // 1. Web Standard API (Edge / Web Fetch Request & Response)
+  if (!res || (typeof res.status !== "function" && typeof res.writeHead !== "function")) {
+    if (req.method !== "POST") {
+      return new Response(JSON.stringify({ error: "Use POST to generate a design." }), {
+        status: 405,
+        headers: { "Content-Type": "application/json", Allow: "POST" }
+      });
+    }
+
+    try {
+      let body;
+      if (typeof req.json === "function") {
+        body = await req.json();
+      } else if (typeof req.body === "string") {
+        try { body = JSON.parse(req.body); } catch (_) { body = {}; }
+      } else {
+        body = req.body || {};
+      }
+      const result = await generateDesign(body);
+      return new Response(JSON.stringify(result), {
+        status: 200,
+        headers: { "Content-Type": "application/json" }
+      });
+    } catch (error) {
+      const status = error.status || 500;
+      const message = error.status ? error.message : (error.message || "Something went wrong. Please try again.");
+      return new Response(JSON.stringify({ error: message }), {
+        status,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+  }
+
+  // 2. Node.js Serverless Function (req: http.IncomingMessage, res: http.ServerResponse)
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Use POST to generate a design." });
+    if (typeof res.setHeader === "function") res.setHeader("Allow", "POST");
+    if (typeof res.status === "function") {
+      return res.status(405).json({ error: "Use POST to generate a design." });
+    }
+    res.writeHead(405, { "Content-Type": "application/json", Allow: "POST" });
+    return res.end(JSON.stringify({ error: "Use POST to generate a design." }));
   }
 
   try {
-    const result = await generateDesign(req.body);
-    return res.status(200).json(result);
+    let body = req.body;
+    if (typeof body === "string") {
+      try { body = JSON.parse(body); } catch (_) { body = {}; }
+    } else if (!body) {
+      const chunks = [];
+      for await (const chunk of req) chunks.push(chunk);
+      try { body = JSON.parse(Buffer.concat(chunks).toString("utf8")); } catch (_) { body = {}; }
+    }
+
+    const result = await generateDesign(body);
+    if (typeof res.status === "function") {
+      return res.status(200).json(result);
+    }
+    res.writeHead(200, { "Content-Type": "application/json" });
+    return res.end(JSON.stringify(result));
   } catch (error) {
-    return res.status(error.status || 500).json({ error: error.status ? error.message : "Something went wrong. Please try again." });
+    const status = error.status || 500;
+    const message = error.status ? error.message : (error.message || "Something went wrong. Please try again.");
+    if (typeof res.status === "function") {
+      return res.status(status).json({ error: message });
+    }
+    res.writeHead(status, { "Content-Type": "application/json" });
+    return res.end(JSON.stringify({ error: message }));
   }
 }
